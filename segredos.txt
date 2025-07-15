@@ -1,0 +1,3 @@
+service id : service_28focwj
+template: template_ti2unz9
+public key: UeJLvpSjLMF8SoKPL
