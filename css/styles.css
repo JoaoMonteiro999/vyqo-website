@@ -824,7 +824,12 @@ footer {
         order: 2;
         margin-bottom: 30px;
     }
-    
+
+    /* Hide hero image on mobile */
+    .hero-image {
+        display: none;
+    }
+
     .cta-buttons {
         justify-content: center;
         flex-direction: column;
