@@ -880,6 +880,17 @@ footer {
         z-index: 999;
     }
 
+    /* Add padding to mobile menu items */
+    nav ul.active li {
+        padding: 0 20px;
+    }
+
+    nav ul.active a {
+        display: block;
+        padding: 15px 0;
+        font-size: 1.1rem;
+    }
+
     /* Animate hamburger into close icon */
     .hamburger.active span:nth-child(1) {
         transform: rotate(45deg) translate(5px, 5px);
