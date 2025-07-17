@@ -820,6 +820,11 @@ footer {
         height: 40px;
     }
 
+    /* Reduce top spacing in hero section on mobile */
+    #hero {
+        padding-top: 80px;
+    }
+
     #hero .container {
         grid-template-columns: 1fr;
         text-align: center;
