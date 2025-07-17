@@ -889,6 +889,15 @@ footer {
         display: block;
         padding: 15px 0;
         font-size: 1.1rem;
+        text-align: center;
+    }
+
+    /* Style the "Get Free Demo" button in mobile menu */
+    nav ul.active .btn-destaque {
+        padding: 15px 30px;
+        margin: 10px 20px;
+        text-align: center;
+        border-radius: var(--border-radius);
     }
 
     /* Animate hamburger into close icon */
