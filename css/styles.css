@@ -245,6 +245,25 @@ nav a:hover::after {
     transition: var(--transition);
 }
 
+/* Mobile demo button - hidden by default */
+.mobile-demo-btn {
+    display: none;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 8px 16px;
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.mobile-demo-btn:hover {
+    background-color: #3248d9;
+    color: white;
+    transform: translateY(-1px);
+}
+
 /* Hero Section */
 #hero {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -598,7 +617,7 @@ nav a:hover::after {
 
 .guarantee-item {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 15px;
     margin-bottom: 20px;
     padding: 20px;
@@ -610,7 +629,7 @@ nav a:hover::after {
 .guarantee-item i {
     color: var(--success-color);
     font-size: 1.5rem;
-    margin-top: 5px;
+    flex-shrink: 0;
 }
 
 .guarantee-item strong {
@@ -866,7 +885,34 @@ footer {
         grid-template-columns: 1fr;
         gap: 30px;
     }
-    
+
+    /* Reorder contact section on mobile - form first, info second */
+    .contacto-info {
+        order: 3;
+    }
+
+    /* Hide the original title in contacto-info on mobile */
+    .contacto-info h2 {
+        display: none;
+    }
+
+    .contacto-form {
+        order: 2;
+    }
+
+    /* Add mobile-specific title before the form */
+    .contacto-grid::before {
+        content: "Ready to 10x Your Business Growth?";
+        display: block;
+        order: 1;
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--dark-color);
+        text-align: center;
+        margin-bottom: 20px;
+        grid-column: 1 / -1;
+    }
+
     .footer-content {
         grid-template-columns: 1fr;
         gap: 30px;
@@ -883,6 +929,11 @@ footer {
     
     .hamburger {
         display: flex;
+    }
+
+    /* Show mobile demo button on mobile */
+    .mobile-demo-btn {
+        display: block;
     }
 
     /* Show mobile menu when active */
