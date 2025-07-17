@@ -69,7 +69,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 from_name: contactForm.nome.value,
                 from_email: contactForm.email.value,
                 company_name: contactForm.clinica.value,
-                annual_revenue: contactForm.revenue.value || 'Not specified',
                 message: `New demo request from ${contactForm.nome.value} at ${contactForm.clinica.value}`,
                 reply_to: contactForm.email.value
             };
@@ -121,4 +120,56 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Video failed to load');
         });
     }
+
+    /* -----------------------
+       Legal Modal Sections
+    -----------------------*/
+    const privacyModal = document.getElementById('privacy-policy');
+    const termsModal = document.getElementById('terms-service');
+    const privacyLink = document.querySelector('a[href="#privacy-policy"]');
+    const termsLink = document.querySelector('a[href="#terms-service"]');
+
+    const openLegal = (modal) => {
+        if (modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    };
+
+    const closeLegal = (modal) => {
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    };
+
+    if (privacyLink && privacyModal) {
+        privacyLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            openLegal(privacyModal);
+        });
+    }
+
+    if (termsLink && termsModal) {
+        termsLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            openLegal(termsModal);
+        });
+    }
+
+    // Close buttons
+    document.querySelectorAll('.legal-close').forEach(btn => {
+        btn.addEventListener('click', function() {
+            closeLegal(this.closest('.legal-section'));
+        });
+    });
+
+    // Close when clicking outside the container
+    window.addEventListener('click', function(e) {
+        if (e.target.classList.contains('legal-section')) {
+            closeLegal(e.target);
+        }
+    });
 }); 
