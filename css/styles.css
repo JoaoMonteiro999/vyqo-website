@@ -864,6 +864,34 @@ footer {
     .hamburger {
         display: flex;
     }
+
+    /* Show mobile menu when active */
+    nav ul.active {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        position: absolute;
+        top: 100%; /* directly below header */
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        padding: 20px 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+    }
+
+    /* Animate hamburger into close icon */
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+    }
     
     .hero-content h1 {
         font-size: 2.2rem;
