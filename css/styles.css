@@ -536,14 +536,6 @@ nav a:hover::after {
     font-size: 1.1rem;
     font-weight: 700;
     border: 2px solid rgba(255, 255, 255, 0.3);
-    transition: var(--transition);
-    cursor: pointer;
-}
-
-.countdown:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-2px);
-    box-shadow: var(--box-shadow);
 }
 
 /* Espaçamento específico para o botão na seção special-offer */
@@ -1001,9 +993,12 @@ footer {
     }
     
     .countdown {
-        padding: 14px 24px;
-        font-size: 1rem;
+        padding: 16px 32px;
+        font-size: 1.1rem;
         margin: 20px 0;
+        width: 100%;
+        text-align: center;
+        display: block;
     }
 }
 
