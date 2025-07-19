@@ -173,7 +173,7 @@ header .container {
     display: flex;
     align-items: center;
     color: var(--primary-color);
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .logo-image {
