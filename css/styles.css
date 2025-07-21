@@ -1110,3 +1110,73 @@ footer {
 .legal-close:hover {
     color: #000;
 } 
+
+/* Voiceflow Chatbot Mobile Fix */
+@media (max-width: 768px) {
+    /* Ensure Voiceflow widget doesn't interfere with mobile navigation */
+    iframe[src*="voiceflow"], 
+    div[data-voiceflow], 
+    .voiceflow-widget,
+    #voiceflow-widget {
+        z-index: 9999 !important;
+        position: fixed !important;
+        bottom: 20px !important;
+        right: 20px !important;
+        max-width: 60px !important;
+        max-height: 60px !important;
+        width: 60px !important;
+        height: 60px !important;
+    }
+    
+    /* When chatbot is open, ensure it doesn't block navigation */
+    body.voiceflow-open {
+        overflow: auto !important;
+        position: relative !important;
+    }
+    
+    /* Prevent Voiceflow from taking over the entire screen */
+    .voiceflow-container,
+    .voiceflow-overlay {
+        z-index: 9998 !important;
+        pointer-events: auto !important;
+    }
+    
+    /* Ensure mobile browser controls remain accessible */
+    body {
+        -webkit-overflow-scrolling: touch !important;
+        overflow-x: hidden !important;
+    }
+    
+    /* Fix for iOS Safari back button */
+    @supports (-webkit-touch-callout: none) {
+        body {
+            position: relative !important;
+            height: 100% !important;
+        }
+        
+        /* Ensure Voiceflow doesn't interfere with iOS navigation */
+        iframe[src*="voiceflow"] {
+            z-index: 9999 !important;
+            position: fixed !important;
+        }
+    }
+}
+
+/* Additional fixes for Android Chrome */
+@media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 1) {
+    /* Ensure proper viewport handling */
+    html, body {
+        position: relative !important;
+        overflow-x: hidden !important;
+    }
+    
+    /* Voiceflow widget positioning */
+    iframe[src*="voiceflow"] {
+        z-index: 9999 !important;
+        position: fixed !important;
+        bottom: 20px !important;
+        right: 20px !important;
+        max-width: 60px !important;
+        max-height: 60px !important;
+    }
+} 
