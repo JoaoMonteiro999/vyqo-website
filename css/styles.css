@@ -1114,14 +1114,18 @@ footer {
 /* Voiceflow Chatbot Mobile Fix */
 @media (max-width: 768px) {
     /* Ensure Voiceflow widget doesn't interfere with mobile navigation */
-    iframe[src*="voiceflow"],
-    div[data-voiceflow],
+    iframe[src*="voiceflow"], 
+    div[data-voiceflow], 
     .voiceflow-widget,
     #voiceflow-widget {
         z-index: 9999 !important;
         position: fixed !important;
         bottom: 20px !important;
         right: 20px !important;
+        max-width: 60px !important;
+        max-height: 60px !important;
+        width: 60px !important;
+        height: 60px !important;
     }
     
     /* When chatbot is open, ensure it doesn't block navigation */
@@ -1172,5 +1176,7 @@ footer {
         position: fixed !important;
         bottom: 20px !important;
         right: 20px !important;
+        max-width: 60px !important;
+        max-height: 60px !important;
     }
 } 
