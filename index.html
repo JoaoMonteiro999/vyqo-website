@@ -401,29 +401,14 @@
         (function(d, t) {
             var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
             v.onload = function() {
-              // Mobile-specific configuration
-              var isMobile = window.innerWidth <= 768;
-              var config = {
+              window.voiceflow.chat.load({
                 verify: { projectID: '68794060e1c8d3b1407da58b' },
                 url: 'https://general-runtime.voiceflow.com',
                 versionID: 'production',
                 voice: {
                   url: "https://runtime-api.voiceflow.com"
                 }
-              };
-              
-              // Add mobile-specific options
-              if (isMobile) {
-                config.voice.mobile = {
-                  preventScrollLock: true,
-                  allowBackButton: true,
-                  zIndex: 9999,
-                  position: 'bottom-right',
-                  size: 'small'
-                };
-              }
-              
-              window.voiceflow.chat.load(config);
+              });
             }
             v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
         })(document, 'script');
