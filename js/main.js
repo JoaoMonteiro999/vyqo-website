@@ -263,52 +263,91 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function fixVoiceflowIframe(iframe) {
-        // Ensure iframe doesn't interfere with mobile navigation
+        // Ensure iframe stays above content
         iframe.style.zIndex = '9999';
         iframe.style.position = 'fixed';
         iframe.style.bottom = '20px';
         iframe.style.right = '20px';
-        iframe.style.maxWidth = '60px';
-        iframe.style.maxHeight = '60px';
-        iframe.style.width = '60px';
-        iframe.style.height = '60px';
-        iframe.style.border = 'none';
-        iframe.style.borderRadius = '50%';
-        iframe.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
-        
-        // Add mobile-specific attributes
-        iframe.setAttribute('allowtransparency', 'true');
-        iframe.setAttribute('scrolling', 'no');
+
+        // Determine if this iframe is the launcher bubble (small) or the full chat (large)
+        const maybeLauncher = () => {
+            const w = iframe.offsetWidth || parseInt(iframe.style.width) || 0;
+            const h = iframe.offsetHeight || parseInt(iframe.style.height) || 0;
+            return (w && w <= 100) || (h && h <= 100);
+        };
+
+        if (maybeLauncher()) {
+            // Apply small bubble dimensions
+            iframe.style.maxWidth = '60px';
+            iframe.style.maxHeight = '60px';
+            iframe.style.width = '60px';
+            iframe.style.height = '60px';
+            iframe.style.border = 'none';
+            iframe.style.borderRadius = '50%';
+            iframe.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+            iframe.setAttribute('allowtransparency', 'true');
+            iframe.setAttribute('scrolling', 'no');
+        }
     }
-    
+
+    /* -----------------------
+       History management for back button
+    -----------------------*/
+
+    let chatHistoryPushed = false;
+
+    // Listen for Voiceflow open/close events via postMessage
+    window.addEventListener('message', function(event) {
+        if (typeof event.data === 'string' && event.data.startsWith('voiceflow:')) {
+            if (event.data === 'voiceflow:open' && !chatHistoryPushed) {
+                // Push a new state so back button closes chat first
+                history.pushState({ chatOpen: true }, '', window.location.href);
+                chatHistoryPushed = true;
+            }
+
+            if (event.data === 'voiceflow:close') {
+                chatHistoryPushed = false;
+            }
+        }
+    }, false);
+
+    // Close chat when user presses device/browser back button
+    window.addEventListener('popstate', function() {
+        if (chatHistoryPushed && window.voiceflow && window.voiceflow.chat) {
+            try {
+                window.voiceflow.chat.close();
+            } catch (err) {
+                console.log('Voiceflow chat close (popstate) error:', err);
+            }
+            chatHistoryPushed = false;
+        }
+    });
+ 
     function fixVoiceflowContainer(container) {
-        // Ensure container doesn't block mobile navigation
+        // Ensure container stays above content
         container.style.zIndex = '9999';
         container.style.position = 'fixed';
         container.style.bottom = '20px';
         container.style.right = '20px';
-        container.style.maxWidth = '60px';
-        container.style.maxHeight = '60px';
         container.style.pointerEvents = 'auto';
-        
-        // Prevent container from taking over the entire screen
+
+        // Determine if this container is likely the launcher bubble (small)
+        const w = container.offsetWidth || parseInt(container.style.width) || 0;
+        const h = container.offsetHeight || parseInt(container.style.height) || 0;
+        const isLauncher = (w && w <= 100) || (h && h <= 100);
+
+        if (isLauncher) {
+            container.style.maxWidth = '60px';
+            container.style.maxHeight = '60px';
+        }
+
+        // Prevent container from blocking clicks outside (when small)
         container.addEventListener('click', function(e) {
-            e.stopPropagation();
+            if (isLauncher) {
+                e.stopPropagation();
+            }
         });
     }
-    
-    // Handle mobile back button
-    window.addEventListener('popstate', function(e) {
-        // Ensure Voiceflow doesn't interfere with browser navigation
-        if (window.voiceflow && window.voiceflow.chat) {
-            // Close chat if open
-            try {
-                window.voiceflow.chat.close();
-            } catch (error) {
-                console.log('Voiceflow chat close error:', error);
-            }
-        }
-    });
     
     // Prevent Voiceflow from blocking touch events on mobile
     document.addEventListener('touchstart', function(e) {
