@@ -1013,13 +1013,15 @@ footer {
     /* Ajuste do vídeo para mobile */
     .demo-video {
         max-width: 100%;
-        left: 20px; /* Desloca menos para mobile */
+        left: 0; /* Remove o deslocamento para centralizar */
     }
     
     .demo-video iframe {
         margin: 0 -20px; /* Margens negativas menores para mobile */
         width: calc(100% + 40px); /* Compensa as margens negativas */
         height: 250px; /* Altura reduzida para mobile */
+        position: relative;
+        left: 20px; /* Desloca o iframe para compensar as margens negativas */
     }
 }
 
