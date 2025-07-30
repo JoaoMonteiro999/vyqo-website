@@ -1014,14 +1014,15 @@ footer {
     .demo-video {
         max-width: 100%;
         left: 0; /* Remove o deslocamento para centralizar */
+        position: static; /* Remove posicionamento relativo no mobile */
     }
     
     .demo-video iframe {
-        margin: 0 -20px; /* Margens negativas menores para mobile */
-        width: calc(100% + 40px); /* Compensa as margens negativas */
+        margin: 0; /* Remove margens negativas no mobile */
+        width: 100%; /* Largura normal no mobile */
         height: 250px; /* Altura reduzida para mobile */
         position: relative;
-        left: 20px; /* Desloca o iframe para compensar as margens negativas */
+        left: 0; /* Remove deslocamento no mobile */
     }
 }
 
