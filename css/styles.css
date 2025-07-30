@@ -485,11 +485,19 @@ nav a:hover::after {
 }
 
 .demo-video {
-    max-width: 800px;
-    margin: 0 auto;
+    max-width: 700px; /* Reduzido para uma caixa mais pequena */
+    margin: 0 auto; /* Centraliza o container */
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    position: relative;
+    left: 50px; /* Desloca para compensar as margens negativas do iframe */
+}
+
+.demo-video iframe {
+    margin: 0 -50px; /* Margens negativas no iframe em vez do container */
+    width: calc(100% + 100px); /* Compensa as margens negativas */
+    border-radius: 15px;
 }
 
 /* Special Offer Section */
@@ -1000,6 +1008,17 @@ footer {
         width: 100%;
         text-align: center;
         display: block;
+    }
+    
+    /* Ajuste do vídeo para mobile */
+    .demo-video {
+        max-width: 100%;
+        left: 20px; /* Desloca menos para mobile */
+    }
+    
+    .demo-video iframe {
+        margin: 0 -20px; /* Margens negativas menores para mobile */
+        width: calc(100% + 40px); /* Compensa as margens negativas */
     }
 }
 
