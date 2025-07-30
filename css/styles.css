@@ -1019,6 +1019,7 @@ footer {
     .demo-video iframe {
         margin: 0 -20px; /* Margens negativas menores para mobile */
         width: calc(100% + 40px); /* Compensa as margens negativas */
+        height: 250px; /* Altura reduzida para mobile */
     }
 }
 
@@ -1059,6 +1060,11 @@ footer {
         padding: 12px 20px;
         font-size: 0.9rem;
         margin: 15px 0;
+    }
+    
+    /* Ajuste do vídeo para smartphones */
+    .demo-video iframe {
+        height: 200px; /* Altura ainda menor para smartphones */
     }
 } 
 
