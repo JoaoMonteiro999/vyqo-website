@@ -21,15 +21,22 @@
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 body {
     font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: var(--text-color);
     background-color: #fff;
+}
+
+/* Prevent layout shifts when modal is open */
+body.modal-open {
+    overflow: hidden;
+    padding-right: 0 !important;
+}
+
+html {
+    scrollbar-gutter: stable;
+    scroll-behavior: smooth;
 }
 
 .container {
@@ -1107,11 +1114,14 @@ footer {
     overflow: auto;
     align-items: center;
     justify-content: center;
-    z-index: 2000;
+    z-index: 9999999; /* Increased to be above cookie popup */
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .legal-section.active {
     display: flex;
+    opacity: 1;
 }
 
 .legal-section .container {
@@ -1123,6 +1133,12 @@ footer {
     max-height: 80vh;
     overflow-y: auto;
     position: relative;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.legal-section.active .container {
+    transform: translateY(0);
 }
 
 .legal-close {

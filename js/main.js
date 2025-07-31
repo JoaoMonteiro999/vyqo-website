@@ -24,12 +24,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Smooth scrolling for anchor links
+    // Smooth scrolling for anchor links (excluding legal modal links)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            
+            // Skip if this is a legal modal link
+            if (targetId === '#privacy-policy' || targetId === '#terms-service') {
+                return; // Let the legal modal handlers deal with these
+            }
+            
             e.preventDefault();
             
-            const targetId = this.getAttribute('href');
             const targetSection = document.querySelector(targetId);
             
             if (targetSection) {
@@ -126,20 +132,39 @@ document.addEventListener('DOMContentLoaded', function() {
     -----------------------*/
     const privacyModal = document.getElementById('privacy-policy');
     const termsModal = document.getElementById('terms-service');
-    const privacyLink = document.querySelector('a[href="#privacy-policy"]');
-    const termsLink = document.querySelector('a[href="#terms-service"]');
+    const privacyLink = document.getElementById('footer-privacy-link'); // Changed to use ID
+    const termsLink = document.getElementById('footer-terms-link'); // Changed to use ID
+
+    let modalScrollPosition = 0; // Store scroll position when modal opens
 
     const openLegal = (modal) => {
         if (modal) {
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            // Store current scroll position
+            modalScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Add modal-open class to body
+            document.body.classList.add('modal-open');
+            
+            // Show modal
+            modal.style.display = 'flex';
+            
+            // Trigger transition after display is set
+            requestAnimationFrame(() => {
+                modal.classList.add('active');
+            });
         }
     };
 
     const closeLegal = (modal) => {
         if (modal) {
             modal.classList.remove('active');
-            document.body.style.overflow = '';
+            
+            // Wait for transition to finish before hiding
+            setTimeout(() => {
+                modal.style.display = 'none';
+                // Always remove modal-open class when closing legal modals
+                document.body.classList.remove('modal-open');
+            }, 300); // Match CSS transition duration
         }
     };
 
@@ -170,6 +195,17 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('click', function(e) {
         if (e.target.classList.contains('legal-section')) {
             closeLegal(e.target);
+        }
+    });
+
+    // Close modal with ESC key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            // Find any active legal modal and close it
+            const activeModal = document.querySelector('.legal-section.active');
+            if (activeModal) {
+                closeLegal(activeModal);
+            }
         }
     });
 }); 
